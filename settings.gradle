@@ -3,3 +3,9 @@ rootProject.name = 'bs-api'
 include 'bs-search-api'
 include 'bs-external'
 
+include 'bs-external:common'
+findProject(':bs-external:common')?.name = 'common'
+
+include 'bs-external:kakao-client'
+findProject(':bs-external:kakao-client')?.name = 'kakao-client'
+
