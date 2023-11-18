@@ -2,9 +2,3 @@ spring:
   config:
     activate:
       on-profile: local
-
-external:
-  kakao:
-    url: https://kapi.kakao.com
-  headers:
-    key:

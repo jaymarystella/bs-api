@@ -1,5 +1,7 @@
 spring:
   config:
-    import: application-common-client.yml
+    import:
+    - application-common-client.yml
+    - application-kakao-client.yml
   profiles:
     active: local
