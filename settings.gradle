@@ -1,1 +1,5 @@
 rootProject.name = 'bs-api'
+
+include 'bs-search-api'
+include 'bs-external'
+
