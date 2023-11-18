@@ -39,6 +39,7 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.codehaus.groovy:groovy:3.0.9'
+        implementation 'commons-io:commons-io:2.15.0'
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'

@@ -1,7 +1,0 @@
-bootJar.enabled = true
-jar.enabled = false
-
-dependencies {
-    implementation project(":bs-external:kakao-client")
-    implementation project(":bs-external:common")
-}
