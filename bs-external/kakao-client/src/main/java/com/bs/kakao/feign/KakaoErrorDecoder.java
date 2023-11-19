@@ -20,7 +20,6 @@ public class KakaoErrorDecoder implements ErrorDecoder {
         this.objectMapper = objectMapper;
     }
 
-
     @Override
     public Exception decode(String methodKey,
                             Response response) {
