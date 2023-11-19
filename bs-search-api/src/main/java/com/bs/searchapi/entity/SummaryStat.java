@@ -7,8 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -17,21 +15,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Entity
-@Table(name = "daily_stat")
-public class DailyStat {
+@Table(name = "summary_stat")
+public class SummaryStat {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "keyword")
     private String keyword;
 
-    @Column(name = "event_date_time")
-    private LocalDateTime eventDateTime;
+    @Column(name = "count")
+    private Long count;
 
-    public DailyStat(String keyword,
-                     LocalDateTime eventDateTime) {
+    @Column(name = "updated_date_time")
+    private LocalDateTime updatedDateTime;
+
+    public SummaryStat(String keyword,
+                       Long count,
+                       LocalDateTime updatedDateTime) {
         this.keyword = keyword;
-        this.eventDateTime = eventDateTime;
+        this.count = count;
+        this.updatedDateTime = updatedDateTime;
     }
 }

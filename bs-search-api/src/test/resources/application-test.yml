@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database: h2
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:bsdb
+    username: sa
+    password:
+external:
+  kakao:
+    url: https://dapi.kakao.com
+  headers:
+    key: testkey # 주의: 실제 통합 테스트에서 key를 사용하여 조회를 하면 실 kakao 서버에 호출이 감.
