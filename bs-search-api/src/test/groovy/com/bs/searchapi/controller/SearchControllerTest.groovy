@@ -1,7 +1,7 @@
 package com.bs.searchapi.controller
 
 import com.bs.searchapi.controller.response.PageResult
-import com.bs.searchapi.service.SearchQueryService
+import com.bs.searchapi.service.SearchApplicationService
 import org.springframework.http.HttpStatus
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.test.web.servlet.MockMvc
@@ -16,11 +16,11 @@ class SearchControllerTest extends Specification {
     @Subject
     SearchController searchController
 
-    SearchQueryService searchQueryService = Mock(SearchQueryService)
+    SearchApplicationService searchApplicationService = Mock(SearchApplicationService)
     MockMvc mockMvc
 
     def setup() {
-        searchController = new SearchController(searchQueryService)
+        searchController = new SearchController(searchApplicationService)
         mockMvc = MockMvcBuilders.standaloneSetup(searchController).build()
     }
 
@@ -41,7 +41,7 @@ class SearchControllerTest extends Specification {
         response.status == HttpStatus.OK.value()
 
         and:
-        1 * searchQueryService.search(*_) >> { String keyword, String sort, int page, int size ->
+        1 * searchApplicationService.search(*_) >> { String keyword, String sort, int page, int size ->
             assert keyword == givenKeyword
             assert sort == givenSort
             assert page == givenPage
