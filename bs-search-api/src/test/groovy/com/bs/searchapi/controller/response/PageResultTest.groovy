@@ -19,7 +19,7 @@ class PageResultTest extends Specification {
         verifyAll(result) {
             contents.size() == 2
             page == givenPage
-            pageSize == givenPageSize
+            size == givenPageSize
             totalElements == givenTotalElements
         }
     }

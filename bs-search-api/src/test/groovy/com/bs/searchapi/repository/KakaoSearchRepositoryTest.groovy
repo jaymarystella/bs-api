@@ -35,7 +35,7 @@ class KakaoSearchRepositoryTest extends Specification {
         verifyAll(result) {
             contents.size() == 2
             page == 1
-            pageSize == 10
+            size == 10
             totalElements == 2
         }
 
