@@ -4,4 +4,6 @@ jar.enabled = false
 dependencies {
     implementation project(":bs-common:")
     implementation project(":bs-external:kakao-client")
+
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
