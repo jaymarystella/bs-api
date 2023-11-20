@@ -50,4 +50,18 @@ class SearchControllerTest extends Specification {
             new PageResult<>([], 1, 10, 1)
         }
     }
+
+    def "searchStat"() {
+        when:
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/v1/search/stat"))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .response
+        then:
+        response.status == HttpStatus.OK.value()
+
+        and:
+        1 * searchApplicationService.searchStat()
+    }
 }

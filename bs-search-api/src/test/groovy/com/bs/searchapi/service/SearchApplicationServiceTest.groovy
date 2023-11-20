@@ -11,9 +11,10 @@ class SearchApplicationServiceTest extends Specification {
 
     SearchQueryService searchQueryService = Mock(SearchQueryService)
     DailyStatCommandService dailyStatCommandService = Mock(DailyStatCommandService)
+    DailyStatQueryService dailyStatQueryService = Mock(DailyStatQueryService)
 
     void setup() {
-        searchApplicationService = new SearchApplicationService(searchQueryService, dailyStatCommandService)
+        searchApplicationService = new SearchApplicationService(searchQueryService, dailyStatQueryService, dailyStatCommandService)
     }
 
     def "search시 검색결과를 반환하면서 통계데이터를 저장한다."() {
@@ -39,5 +40,13 @@ class SearchApplicationServiceTest extends Specification {
         1 * dailyStatCommandService.save(*_) >> { DailyStat dailyStat ->
             assert dailyStat.keyword == givenKeyword
         }
+    }
+
+    def "searchStat시 쿼리서비스를 통하여 조회한다."() {
+        when:
+        searchApplicationService.searchStat()
+
+        then:
+        1 * dailyStatQueryService.searchStat()
     }
 }
