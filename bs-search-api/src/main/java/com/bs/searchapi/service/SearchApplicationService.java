@@ -1,5 +1,6 @@
 package com.bs.searchapi.service;
 
+import com.bs.searchapi.controller.request.SortType;
 import com.bs.searchapi.controller.response.StatResponse;
 import com.bs.searchapi.controller.response.PageResult;
 import com.bs.searchapi.controller.response.SearchResponse;
@@ -24,10 +25,10 @@ public class SearchApplicationService {
     }
 
     public PageResult<SearchResponse> search(String keyword,
-                                             String name,
+                                             SortType sortType,
                                              int page,
                                              int size) {
-        PageResult<SearchResponse> response = searchQueryService.search(keyword, name, page, size);
+        PageResult<SearchResponse> response = searchQueryService.search(keyword, sortType, page, size);
         DailyStat dailyStat = new DailyStat(keyword, LocalDateTime.now());
         dailyStatCommandService.save(dailyStat);
         return response;

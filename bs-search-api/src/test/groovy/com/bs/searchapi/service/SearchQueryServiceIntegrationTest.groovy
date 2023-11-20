@@ -1,5 +1,6 @@
 package com.bs.searchapi.service
 
+import com.bs.searchapi.controller.request.SortType
 import com.bs.searchapi.controller.response.PageResult
 import com.bs.searchapi.controller.response.SearchResponse
 import com.bs.searchapi.repository.KakaoSearchRepository
@@ -30,18 +31,18 @@ class SearchQueryServiceIntegrationTest extends Specification {
     def "circuit이 Open되면 Naver쪽으로 요청을 한다."() {
         given:
         def keyword = "치킨"
-        def sort = "accuracy"
+        def sortType = SortType.ACCURACY
         def page = 1
         def size = 10
         def givenNaverFallbackResponse = new PageResult<>([], 1, 10, 1)
 
-        kakaoSearchRepository.search(keyword, sort, page, size) >> { throw new RuntimeException("Circuit breaker opened") }
+        kakaoSearchRepository.search(keyword, sortType.kakaoParam, page, size) >> { throw new RuntimeException("Circuit breaker opened") }
 
         when:
-        PageResult<SearchResponse> result = searchQueryService.search(keyword, sort, page, size)
+        PageResult<SearchResponse> result = searchQueryService.search(keyword, sortType, page, size)
 
         then: "Naver쪽으로 fallback으로 요청한다."
-        1 * naverSearchRepository.search(keyword, sort, page, size) >> givenNaverFallbackResponse
+        1 * naverSearchRepository.search(keyword, sortType.naverParam, page, size) >> givenNaverFallbackResponse
 
         and: "circuit이 오픈된다."
         circuitBreakerRegistry.getAllCircuitBreakers().get(0).state == CircuitBreaker.State.OPEN

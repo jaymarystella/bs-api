@@ -1,5 +1,6 @@
 package com.bs.searchapi.controller
 
+import com.bs.searchapi.controller.request.SortType
 import com.bs.searchapi.controller.response.PageResult
 import com.bs.searchapi.service.SearchApplicationService
 import org.springframework.http.HttpStatus
@@ -27,13 +28,13 @@ class SearchControllerTest extends Specification {
     def "search"() {
         given:
         def givenKeyword = "치킨"
-        def givenSort = "ACCURACY"
+        def givenSortType = SortType.ACCURACY
         def givenPage = 1
         def givenSize = 10
 
         when:
         MockHttpServletResponse response = mockMvc.perform(
-                get("/v1/search?keyword=${givenKeyword}&sort=${givenSort}&page=${givenPage}&size=${givenSize}"))
+                get("/v1/search?keyword=${givenKeyword}&sort=${givenSortType}&page=${givenPage}&size=${givenSize}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .response
@@ -41,9 +42,9 @@ class SearchControllerTest extends Specification {
         response.status == HttpStatus.OK.value()
 
         and:
-        1 * searchApplicationService.search(*_) >> { String keyword, String sort, int page, int size ->
+        1 * searchApplicationService.search(*_) >> { String keyword, SortType sortType, int page, int size ->
             assert keyword == givenKeyword
-            assert sort == givenSort
+            assert sortType == givenSortType
             assert page == givenPage
             assert size == givenSize
 

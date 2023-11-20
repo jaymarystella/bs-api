@@ -1,5 +1,6 @@
 package com.bs.searchapi.service;
 
+import com.bs.searchapi.controller.request.SortType;
 import com.bs.searchapi.controller.response.PageResult;
 import com.bs.searchapi.controller.response.SearchResponse;
 import com.bs.searchapi.repository.KakaoSearchRepository;
@@ -22,19 +23,19 @@ public class SearchQueryService {
 
     @CircuitBreaker(name = "kakaoSearch", fallbackMethod = "fallbackToNaverSearch")
     public PageResult<SearchResponse> search(String keyword,
-                                             String sort,
+                                             SortType sortType,
                                              int page,
                                              int size) {
-        log.info("[SearchQueryService] kakao search keyword: {}, sort: {}, page: {}, pageSize: {}", keyword, sort, page, size);
-        return kakaoSearchRepository.search(keyword, sort, page, size);
+        log.info("[SearchQueryService] kakao search keyword: {}, sort: {}, page: {}, pageSize: {}", keyword, sortType, page, size);
+        return kakaoSearchRepository.search(keyword, sortType.getKakaoParam(), page, size);
     }
 
     public PageResult<SearchResponse> fallbackToNaverSearch(String keyword,
-                                                            String sort,
+                                                            SortType sortType,
                                                             int page,
                                                             int size,
                                                             Throwable t) {
         log.error("Kakao search circuit opened!!! Fallback to Naver search. errorMessage: {}", t.getMessage());
-        return naverSearchRepository.search(keyword, sort, page, size);
+        return naverSearchRepository.search(keyword, sortType.getNaverParam(), page, size);
     }
 }
