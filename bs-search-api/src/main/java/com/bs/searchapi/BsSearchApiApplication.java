@@ -2,6 +2,7 @@ package com.bs.searchapi;
 
 import com.bs.common.LocalDateTimeDeserializer;
 import com.bs.kakao.feign.KakaoClient;
+import com.bs.naver.feign.NaverClient;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.time.LocalDateTime;
 
-@EnableFeignClients(clients = KakaoClient.class)
+@EnableFeignClients(clients = {KakaoClient.class, NaverClient.class})
 @SpringBootApplication
 public class BsSearchApiApplication implements Jackson2ObjectMapperBuilderCustomizer {
     public static void main(String[] args) {

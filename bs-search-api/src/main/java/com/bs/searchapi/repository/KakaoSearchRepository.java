@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.bs.common.CommonUtils.filter;
+
 @Repository
 public class KakaoSearchRepository implements SearchRepository {
     private final KakaoClient kakaoClient;
@@ -38,9 +40,5 @@ public class KakaoSearchRepository implements SearchRepository {
                 .summary(filter(document.getContents()))
                 .issuedAt(document.getDatetime())
                 .build();
-    }
-
-    private String filter(String contents) {
-        return contents.replaceAll("<[^>]+>", "");
     }
 }

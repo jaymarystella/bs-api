@@ -2,21 +2,39 @@ package com.bs.searchapi.service;
 
 import com.bs.searchapi.controller.response.PageResult;
 import com.bs.searchapi.controller.response.SearchResponse;
-import com.bs.searchapi.repository.SearchRepository;
+import com.bs.searchapi.repository.KakaoSearchRepository;
+import com.bs.searchapi.repository.NaverSearchRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SearchQueryService {
-    private final SearchRepository searchRepository;
+    private final KakaoSearchRepository kakaoSearchRepository;
+    private final NaverSearchRepository naverSearchRepository;
 
-    public SearchQueryService(SearchRepository searchRepository) {
-        this.searchRepository = searchRepository;
+    public SearchQueryService(KakaoSearchRepository kakaoSearchRepository,
+                              NaverSearchRepository naverSearchRepository) {
+        this.kakaoSearchRepository = kakaoSearchRepository;
+        this.naverSearchRepository = naverSearchRepository;
     }
 
+    @CircuitBreaker(name = "kakaoSearch", fallbackMethod = "fallbackToNaverSearch")
     public PageResult<SearchResponse> search(String keyword,
                                              String sort,
                                              int page,
                                              int size) {
-        return searchRepository.search(keyword, sort, page, size);
+        log.info("[SearchQueryService] kakao search keyword: {}, sort: {}, page: {}, pageSize: {}", keyword, sort, page, size);
+        return kakaoSearchRepository.search(keyword, sort, page, size);
+    }
+
+    public PageResult<SearchResponse> fallbackToNaverSearch(String keyword,
+                                                            String sort,
+                                                            int page,
+                                                            int size,
+                                                            Throwable t) {
+        log.error("Kakao search circuit opened!!! Fallback to Naver search. errorMessage: {}", t.getMessage());
+        return naverSearchRepository.search(keyword, sort, page, size);
     }
 }
