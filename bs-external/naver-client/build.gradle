@@ -1,0 +1,7 @@
+bootJar.enabled = false
+jar.enabled = true
+
+dependencies {
+    api project(":bs-common:")
+    api project(":bs-external:common")
+}

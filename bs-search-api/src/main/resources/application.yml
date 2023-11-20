@@ -3,6 +3,7 @@ spring:
     import:
       - application-common-client.yml
       - application-kakao-client.yml
+      - application-naver-client.yml
   profiles:
     active: local
   mvc:

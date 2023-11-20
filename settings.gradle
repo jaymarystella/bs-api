@@ -9,3 +9,7 @@ findProject(':bs-external:common')?.name = 'common'
 
 include 'bs-external:kakao-client'
 findProject(':bs-external:kakao-client')?.name = 'kakao-client'
+
+include 'bs-external:naver-client'
+findProject(':bs-external:naver-client')?.name = 'naver-client'
+
