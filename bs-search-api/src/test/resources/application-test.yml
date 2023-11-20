@@ -15,12 +15,13 @@ spring:
 external:
   kakao:
     url: https://dapi.kakao.com
-  headers:
-    key: testkey # 주의: 실제 통합 테스트에서 key를 사용하여 조회를 하면 실 kakao, naver 서버에 호출이 감.
-    client-id:
-    client-secret:
+    headers:
+      key: testkey # 주의: 실제 통합 테스트에서 key를 사용하여 조회를 하면 실 kakao, naver 서버에 호출이 감.
   naver:
     url: https://openapi.naver.com
+    headers:
+      client-id:
+      client-secret:
 resilience4j:
   circuitbreaker:
     configs:

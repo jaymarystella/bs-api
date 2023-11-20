@@ -5,5 +5,5 @@ spring:
 external:
   kakao:
     url: https://dapi.kakao.com
-  headers:
-    key:
+    headers:
+      key:

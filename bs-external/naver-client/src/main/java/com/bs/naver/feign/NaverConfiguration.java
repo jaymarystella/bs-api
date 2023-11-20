@@ -10,8 +10,8 @@ import static com.bs.common.ClientConstants.NAVER_CLIENT_SECRET_HEADER;
 
 public class NaverConfiguration {
     @Bean
-    public RequestInterceptor requestInterceptor(@Value("${external.headers.client-id}") String clientId,
-                                                 @Value("${external.headers.client-secret}") String clientSecret) {
+    public RequestInterceptor requestInterceptor(@Value("${external.naver.headers.client-id}") String clientId,
+                                                 @Value("${external.naver.headers.client-secret}") String clientSecret) {
         return requestTemplate -> requestTemplate.header(NAVER_CLIENT_ID_HEADER, clientId)
                 .header(NAVER_CLIENT_SECRET_HEADER, clientSecret);
     }

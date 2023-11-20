@@ -10,7 +10,7 @@ import static com.bs.common.ClientConstants.AUTHORIZATION;
 public class KakaoConfiguration {
 
     @Bean
-    public RequestInterceptor requestInterceptor(@Value("${external.headers.key}") String key) {
+    public RequestInterceptor requestInterceptor(@Value("${external.kakao.headers.key}") String key) {
         return requestTemplate -> requestTemplate.header(AUTHORIZATION, "KakaoAK " + key);
     }
 
