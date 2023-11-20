@@ -33,10 +33,17 @@
 - BS-5
     - 통계 기능 구현 및 블로그 검색 API에 저장기능 연동
     - 인기 검색어 목록 API 구현
+- BS-6
+  - 네이버 블로그 API Fallback 연동 및 circuit breaker 설정
 
 ## 외부라이브러리
 - Feign Client
+  - 통신 라이브러리
 - Spock
+  - 테스트 프레임워크
 - commons-io
+  - feign에서 body 읽을때 사용 
+- resilience4j
+  - 서킷브레이커 적용
 
     
