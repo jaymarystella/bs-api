@@ -16,4 +16,17 @@ external:
   kakao:
     url: https://dapi.kakao.com
   headers:
-    key: testkey # 주의: 실제 통합 테스트에서 key를 사용하여 조회를 하면 실 kakao 서버에 호출이 감.
+    key: testkey # 주의: 실제 통합 테스트에서 key를 사용하여 조회를 하면 실 kakao, naver 서버에 호출이 감.
+    client-id:
+    client-secret:
+  naver:
+    url: https://openapi.naver.com
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 1
+        permittedNumberOfCallsInHalfOpenState: 10
+        minimumNumberOfCalls: 2
+        waitDurationInOpenState: 1s
+        failureRateThreshold: 50
