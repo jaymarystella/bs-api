@@ -6,4 +6,4 @@ external:
   kakao:
     url: https://dapi.kakao.com
     headers:
-      key:
+      key: ${KAKAO_API_KEY}
