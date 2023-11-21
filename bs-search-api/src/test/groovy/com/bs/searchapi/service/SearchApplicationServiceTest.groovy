@@ -2,7 +2,8 @@ package com.bs.searchapi.service
 
 import com.bs.searchapi.controller.request.SortType
 import com.bs.searchapi.controller.response.PageResult
-import com.bs.searchapi.entity.DailyStat
+import com.bs.searchapi.service.event.SearchStatEvent
+import org.springframework.context.ApplicationEventPublisher
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -11,11 +12,11 @@ class SearchApplicationServiceTest extends Specification {
     SearchApplicationService searchApplicationService
 
     SearchQueryService searchQueryService = Mock(SearchQueryService)
-    DailyStatCommandService dailyStatCommandService = Mock(DailyStatCommandService)
     DailyStatQueryService dailyStatQueryService = Mock(DailyStatQueryService)
+    ApplicationEventPublisher eventPublisher = Mock(ApplicationEventPublisher)
 
     void setup() {
-        searchApplicationService = new SearchApplicationService(searchQueryService, dailyStatQueryService, dailyStatCommandService)
+        searchApplicationService = new SearchApplicationService(searchQueryService, dailyStatQueryService, eventPublisher)
     }
 
     def "search시 검색결과를 반환하면서 통계데이터를 저장한다."() {
@@ -37,10 +38,8 @@ class SearchApplicationServiceTest extends Specification {
             new PageResult<>([], 1, 10, 1)
         }
 
-        and: "통계데이터를 저장한다."
-        1 * dailyStatCommandService.save(*_) >> { DailyStat dailyStat ->
-            assert dailyStat.keyword == givenKeyword
-        }
+        and: "저장 이벤트를 발행한다."
+        1 * eventPublisher.publishEvent(_ as SearchStatEvent)
     }
 
     def "searchStat시 쿼리서비스를 통하여 조회한다."() {

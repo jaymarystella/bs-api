@@ -35,6 +35,10 @@
     - 인기 검색어 목록 API 구현
 - BS-6
   - 네이버 블로그 API Fallback 연동 및 circuit breaker 설정
+- BS-7
+  - 한글 명사 키워드 추출 기능
+- BS-8
+  - 고가용성을 위한 설정 및 설계
 
 ## 외부라이브러리
 - Feign Client
