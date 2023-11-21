@@ -4,8 +4,9 @@ import com.bs.searchapi.controller.request.SortType;
 import com.bs.searchapi.controller.response.PageResult;
 import com.bs.searchapi.controller.response.SearchResponse;
 import com.bs.searchapi.controller.response.StatResponse;
-import com.bs.searchapi.entity.DailyStat;
+import com.bs.searchapi.service.event.SearchStatEvent;
 import com.bs.searchapi.util.KeywordParser;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,14 +16,14 @@ import java.util.List;
 public class SearchApplicationService {
     private final SearchQueryService searchQueryService;
     private final DailyStatQueryService dailyStatQueryService;
-    private final DailyStatCommandService dailyStatCommandService;
+    private final ApplicationEventPublisher eventPublisher;
 
     public SearchApplicationService(SearchQueryService searchQueryService,
                                     DailyStatQueryService dailyStatQueryService,
-                                    DailyStatCommandService dailyStatCommandService) {
+                                    ApplicationEventPublisher eventPublisher) {
         this.searchQueryService = searchQueryService;
         this.dailyStatQueryService = dailyStatQueryService;
-        this.dailyStatCommandService = dailyStatCommandService;
+        this.eventPublisher = eventPublisher;
     }
 
     public PageResult<SearchResponse> search(String input,
@@ -32,10 +33,10 @@ public class SearchApplicationService {
         PageResult<SearchResponse> response = searchQueryService.search(input, sortType, page, size);
 
         List<String> keywords = KeywordParser.parseKeywords(input);
-        for (String keyword : keywords) {
-            DailyStat dailyStat = new DailyStat(keyword, LocalDateTime.now());
-            dailyStatCommandService.save(dailyStat);
-        }
+        keywords.stream()
+                .map(keyword -> new SearchStatEvent(keyword, LocalDateTime.now()))
+                .forEach(eventPublisher::publishEvent);
+
         return response;
     }
 
