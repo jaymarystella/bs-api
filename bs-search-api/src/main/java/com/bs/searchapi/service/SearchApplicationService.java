@@ -1,10 +1,11 @@
 package com.bs.searchapi.service;
 
 import com.bs.searchapi.controller.request.SortType;
-import com.bs.searchapi.controller.response.StatResponse;
 import com.bs.searchapi.controller.response.PageResult;
 import com.bs.searchapi.controller.response.SearchResponse;
+import com.bs.searchapi.controller.response.StatResponse;
 import com.bs.searchapi.entity.DailyStat;
+import com.bs.searchapi.util.KeywordParser;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,13 +25,17 @@ public class SearchApplicationService {
         this.dailyStatCommandService = dailyStatCommandService;
     }
 
-    public PageResult<SearchResponse> search(String keyword,
+    public PageResult<SearchResponse> search(String input,
                                              SortType sortType,
                                              int page,
                                              int size) {
-        PageResult<SearchResponse> response = searchQueryService.search(keyword, sortType, page, size);
-        DailyStat dailyStat = new DailyStat(keyword, LocalDateTime.now());
-        dailyStatCommandService.save(dailyStat);
+        PageResult<SearchResponse> response = searchQueryService.search(input, sortType, page, size);
+
+        List<String> keywords = KeywordParser.parseKeywords(input);
+        for (String keyword : keywords) {
+            DailyStat dailyStat = new DailyStat(keyword, LocalDateTime.now());
+            dailyStatCommandService.save(dailyStat);
+        }
         return response;
     }
 

@@ -15,7 +15,7 @@ class SearchRequestTest extends Specification {
     def "searchRequest 유효성 검증"() {
         given:
         SearchRequest request = new SearchRequest()
-        request.setKeyword(keyword)
+        request.setInput(keyword)
         request.setSort(sort)
         request.setPage(page)
         request.setSize(size)

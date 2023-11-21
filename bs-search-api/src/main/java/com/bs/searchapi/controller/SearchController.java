@@ -23,7 +23,7 @@ public class SearchController {
 
     @GetMapping
     public PageResult<SearchResponse> search(@Valid SearchRequest request) {
-        return searchApplicationService.search(request.getKeyword(), request.getSort(), request.getPage(), request.getSize());
+        return searchApplicationService.search(request.getInput(), request.getSort(), request.getPage(), request.getSize());
     }
 
     @GetMapping("/stat")

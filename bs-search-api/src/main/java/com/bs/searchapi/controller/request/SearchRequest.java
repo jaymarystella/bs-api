@@ -8,13 +8,15 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @ToString
 public class SearchRequest {
-    @NotBlank(message = "키워드는 비어 있을 수 없습니다.")
-    private String keyword;
+    @NotBlank(message = "입력은 비어 있을 수 없습니다.")
+    @Size(max = 50, message = "키워드는 최대 50자를 초과할 수 없습니다.")
+    private String input;
 
     @NotNull(message = "정렬 기준은 비어 있을 수 없습니다.")
     private SortType sort;

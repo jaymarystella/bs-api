@@ -27,14 +27,14 @@ class SearchControllerTest extends Specification {
 
     def "search"() {
         given:
-        def givenKeyword = "치킨"
+        def givenInput = "나는 치킨이 너무 좋아"
         def givenSortType = SortType.ACCURACY
         def givenPage = 1
         def givenSize = 10
 
         when:
         MockHttpServletResponse response = mockMvc.perform(
-                get("/v1/search?keyword=${givenKeyword}&sort=${givenSortType}&page=${givenPage}&size=${givenSize}"))
+                get("/v1/search?input=${givenInput}&sort=${givenSortType}&page=${givenPage}&size=${givenSize}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .response
@@ -42,8 +42,8 @@ class SearchControllerTest extends Specification {
         response.status == HttpStatus.OK.value()
 
         and:
-        1 * searchApplicationService.search(*_) >> { String keyword, SortType sortType, int page, int size ->
-            assert keyword == givenKeyword
+        1 * searchApplicationService.search(*_) >> { String input, SortType sortType, int page, int size ->
+            assert input == givenInput
             assert sortType == givenSortType
             assert page == givenPage
             assert size == givenSize

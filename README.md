@@ -45,5 +45,7 @@
   - feign에서 body 읽을때 사용 
 - resilience4j
   - 서킷브레이커 적용
+- KOMORAN:3.3.9
+  - 한글 분석에 사용
 
     
