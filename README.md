@@ -2,6 +2,12 @@
 # Project [bs-api] 
 - Blog Search API
 
+# 실행 JAR 파일
+https://drive.google.com/file/d/1G5hPd7aKRBtBfTH3-3eaGAMD8binFnjq/view?usp=drive_link
+
+key값을 말아서 같이 만들었기 때문에 실행가능합니다. 코드내엔 키값을 커밋하지 않았습니다.
+java -jar bs-search-api-0.0.1-SNAPSHOT.jar
+
 ## 기능 요구사항
 1. 블로그 검색
 - 키워드를 통해 블로그를 검색
@@ -15,12 +21,14 @@
 - 검색어 별로 검색된 횟수도 함께 표기
 
 ## 실행주의사항
-외부호출 (Kakao, Naver) key는 실제 구동시에 환경변수로 넣어주어야 구동됩니다.
+IDE에서 구동시 외부호출 (Kakao, Naver) key는 실제 구동시에 환경변수로 넣어주어야 구동됩니다. 
 
 ## 시스템 디자인
 현재 기준으로 프로젝트가 구성된 모습
 <img width="1034" alt="AS-IS" src="https://github.com/jaymarystella/bs-api/assets/151337670/2fa8634f-8e3b-481a-b9ac-359000e14f89">
 
+## api docs
+http://localhost:8080/swagger-ui/index.html
 
 ## 작업 Task 목록
 - BS-0
