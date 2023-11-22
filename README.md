@@ -19,10 +19,10 @@
 
 ## 시스템 디자인
 현재 기준으로 프로젝트가 구성된 모습
+<img width="1034" alt="AS-IS" src="https://github.com/jaymarystella/bs-api/assets/151337670/2fa8634f-8e3b-481a-b9ac-359000e14f89">
 
 
 ## 작업 Task 목록
-
 - BS-0
   - 에픽
 - BS-1
@@ -63,4 +63,11 @@
 
 ## 시스템 디자인 (TO-BE)
 추후 개선부분 까지 합쳐서 고려된 모습
-    
+<img width="1328" alt="TO-BE" src="https://github.com/jaymarystella/bs-api/assets/151337670/c5dd00ee-2e2f-49a7-b832-54f8116cbe89">
+개선포인트
+- Event발행 별도 메세지 서버 구성
+- RDS에 정해진 처리량만큼 write하는 worker 서버 구성
+- External Server 별도 구성
+- 일 호출량 (10만) 제한을 대비한 다수 키 매니징 기능 구현
+- 데이터베이스 일간 파티셔닝
+- 빠른 검색 서빙을 위한 캐시레이어추가 (DDB, ES 등)
